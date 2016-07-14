@@ -1,0 +1,358 @@
+<div id="salary" class="col-md-7"></div>
+<div id="city" class="col-md-7"></div>
+<div id="workyear" class="col-md-7"></div>
+<div id="education" class="col-md-7"></div>
+<div id="jobnature" class="col-md-7"></div>
+<script type="text/javascript">
+ var kkp;
+ var salary;
+ var city;
+ var education;
+ var jobnature;
+ $(function () {
+
+  $.ajax({
+   type: 'get',
+   url: 'http://127.0.0.1:3000/frontend/salary',
+   async: false,
+   success: function (data) {
+    salary = JSON.parse(data);
+    console.log(salary["1-5"]);
+   }
+  })
+
+  $.ajax({
+   type: 'get',
+   url: 'http://127.0.0.1:3000/frontend/city',
+   async: false,
+   success: function (data) {
+    city = JSON.parse(data);
+   }
+  })
+
+  $.ajax({
+   type: 'get',
+   url: 'http://127.0.0.1:3000/frontend/workyear',
+   async: false,
+   success: function (data) {
+    kkp = JSON.parse(data);
+    console.log("XXXXX", kkp["应届毕业生"])
+   }
+  })
+
+  $.ajax({
+   type: 'get',
+   url: 'http://127.0.0.1:3000/frontend/education',
+   async: false,
+   success: function (data) {
+    education = JSON.parse(data);
+   }
+  })
+
+  $.ajax({
+   type: 'get',
+   url: 'http://127.0.0.1:3000/frontend/jobnature',
+   async: false,
+   success: function (data) {
+    jobnature = JSON.parse(data);
+   }
+  })
+
+
+
+
+  $('#salary').highcharts({
+   chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+   },
+   title: {
+    text: '薪资分布'
+   },
+   tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+   },
+   credits: {
+    enabled: false
+   },
+   plotOptions: {
+    pie: {
+     allowPointSelect: true,
+     cursor: 'pointer',
+     dataLabels: {
+      enabled: true,
+      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+      style: {
+       color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+      }
+     }
+    }
+   },
+   series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+     name: '1-5k',
+     y: salary["1-5"]
+    }, {
+     name: '6-10k',
+     y: salary["6-10"],
+     sliced: true,
+     selected: true
+    }, {
+     name: '11-15k',
+     y: salary["11-15"]
+    }, {
+     name: '16-20k',
+     y: salary["16-20"]
+    }, {
+     name: '21-25k',
+     y: salary["21-25"]
+    }, {
+     name: '30k',
+     y: salary["30"]
+    }]
+   }]
+  });
+  $('#workyear').highcharts({
+   chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+   },
+   title: {
+    text: '工作经验'
+   },
+   tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+   },
+   credits: {
+    enabled: false
+   },
+   plotOptions: {
+    pie: {
+     allowPointSelect: true,
+     cursor: 'pointer',
+     dataLabels: {
+      enabled: true,
+      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+      style: {
+       color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+      }
+     }
+    }
+   },
+   series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+     name: '应届毕业生',
+     y: kkp["应届毕业生"]
+    }, {
+     name: '1-3年',
+     y: kkp["1-3年"],
+     sliced: true,
+     selected: true
+    }, {
+     name: '不限',
+     y: kkp["不限"]
+    }, {
+     name: '3-5年',
+     y: kkp["3-5年"]
+    }, {
+     name: '5-10年',
+     y: kkp["5-10年"]
+    }, {
+     name: '1年以下',
+     y: kkp["1年以下"]
+    }]
+   }]
+  });
+  $('#city').highcharts({
+   chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+   },
+   title: {
+    text: '城市分布'
+   },
+   tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+   },
+   credits: {
+    enabled: false
+   },
+   plotOptions: {
+    pie: {
+     allowPointSelect: true,
+     cursor: 'pointer',
+     dataLabels: {
+      enabled: true,
+      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+      style: {
+       color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+      }
+     }
+    }
+   },
+   series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+     name: '北京',
+     y: city["北京"]
+    }, {
+     name: '上海',
+     y: city["上海"],
+     sliced: true,
+     selected: true
+    }, {
+     name: '杭州',
+     y: city["杭州"]
+    }, {
+     name: '深圳',
+     y: city["深圳"]
+    }, {
+     name: '广州',
+     y: city["广州"]
+    }, {
+     name: '成都',
+     y: city["成都"]
+    }, {
+     name: "武汉",
+     y: city["武汉"]
+    }, {
+     name: "南京",
+     y: city["南京"]
+    }, {
+     name: "西安",
+     y: city["西安"]
+    }, {
+     name: "天津",
+     y: city["天津"]
+    }, {
+     name: "厦门",
+     y: city["厦门"]
+    }, {
+     name: "郑州",
+     y: city["郑州"]
+    }, {
+     name: "长沙",
+     y: city["长沙"]
+    }, {
+     name: "珠海",
+     y: city["珠海"]
+    }, {
+     name: "东莞",
+     y: city["东莞"]
+    }, {
+     name: "青岛",
+     y: city["青岛"]
+    }]
+
+   }]
+  });
+  $('#education').highcharts({
+   chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+   },
+   title: {
+    text: '学历要求分布'
+   },
+   tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+   },
+   credits: {
+    enabled: false
+   },
+   plotOptions: {
+    pie: {
+     allowPointSelect: true,
+     cursor: 'pointer',
+     dataLabels: {
+      enabled: true,
+      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+      style: {
+       color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+      }
+     }
+    }
+   },
+   series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+     name: '硕士',
+     y: education["硕士"]
+    }, {
+     name: '大专',
+     y: education["大专"],
+     sliced: true,
+     selected: true
+    }, {
+     name: '学历不限',
+     y: education["学历不限"]
+    }, {
+     name: '本科',
+     y: education["本科"]
+    }]
+   }]
+  });
+  $('#jobnature').highcharts({
+   chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+   },
+   title: {
+    text: '学历要求分布'
+   },
+   tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+   },
+   credits: {
+    enabled: false
+   },
+   plotOptions: {
+    pie: {
+     allowPointSelect: true,
+     cursor: 'pointer',
+     dataLabels: {
+      enabled: true,
+      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+      style: {
+       color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+      }
+     }
+    }
+   },
+   series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+     name: '实习',
+     y: jobnature["实习"]
+    }, {
+     name: '全职',
+     y: jobnature["全职"],
+     sliced: true,
+     selected: true
+    }, {
+     name: '兼职',
+     y: jobnature["兼职"]
+    }]
+   }]
+  });
+
+
+ })
+</script>
